@@ -26,7 +26,7 @@ class User:
     def register(self, text_obj):
         self._subscribers.append(text_obj)
     
-    def print_vocabulary(self):
+    def _print_vocabulary(self):
         print("Your Vocabulary:")
         for word in sorted(self.words_unlocked):
             print(f"- {word}")

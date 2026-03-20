@@ -1,4 +1,5 @@
 import os
+from src.utilities.word_utilities import is_valid_word
 
 def clear_terminal():
     """Clears the terminal screen depending on the operating system being used."""
@@ -28,9 +29,8 @@ def get_valid_word(prompt="Word: \n", valid_words=None, error_message="Please en
     while True:
         word = input(prompt).strip()
 
-        if word.isalpha():
-            if valid_words is None or word.lower() in valid_words:
-                return word.lower()
+        if is_valid_word(word, valid_words):
+            return word
 
         print(error_message)
 
