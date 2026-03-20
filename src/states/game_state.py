@@ -6,7 +6,7 @@ from src.utilities.terminal_utilities import clear_terminal, get_option
 from src.utilities.masked_text import MaskedText
 from src.utilities.word_utilities import load_words
 
-from src.data.text_strings import PLAY_TEXT, GAME_TITLE_TEXT, BOOK_TEXT, SHOP_TEXT, QUIT_TEXT
+from src.data.text_strings import * 
 
 WORDS_PATH = Path(".") / "src"/ "data"/ "word_list.txt"
 SAVES_PATH = Path(".") / "saves"
@@ -27,12 +27,17 @@ class GameState(State):
         self.game_menu_text = MaskedText(PLAY_TEXT, self.user)
         self.book_text = MaskedText(BOOK_TEXT, self.user)
         self.shop_text = MaskedText(SHOP_TEXT, self.user)
+        self.statistics_text = MaskedText(STATISTICS_TEXT, self.user)
         self.quit_text = MaskedText(QUIT_TEXT, self.user)
    
     def run(self):
         clear_terminal()
         print(self.title_text.render())
-        choice = get_option("> ", [self.game_menu_text.render(), self.book_text.render(), self.shop_text.render(), self.quit_text.render()])
+        choice = get_option("> ", [self.game_menu_text.render(), 
+                                   self.book_text.render(), 
+                                   self.shop_text.render(),
+                                   self.statistics_text.render(),
+                                   self.quit_text.render()])    
         
         if choice == self.game_menu_text.render():            
             self.next_state = "ANAGRAM_STATE"
@@ -40,6 +45,8 @@ class GameState(State):
             self.next_state = "BOOK_STATE"
         elif choice == self.shop_text.render():
             self.next_state = "SHOP_STATE"
+        elif choice == self.statistics_text.render():
+            self.next_state = "STATISTICS_STATE"
         elif choice == self.quit_text.render():
             self.save_game()
             self.next_state = "QUIT"

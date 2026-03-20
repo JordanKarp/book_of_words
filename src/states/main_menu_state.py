@@ -48,13 +48,10 @@ class MainMenuState(State):
             name = self.prompt_name()
             self.persist["user"] = self.load_user(name)
             self.next_state = "GAME_STATE"
-        # TODO: Add settings and high scores
-        # elif choice == MAIN_MENU_SETTINGS_TEXT:
-        #     self.next_state = "SETTINGS"
-        # elif choice == MAIN_MENU_HIGH_SCORES_TEXT:
-        #     self.next_state = "HIGH_SCORE"
+
+        elif choice == MAIN_MENU_SETTINGS_TEXT:
+            self.next_state = "SETTINGS_STATE"
+        elif choice == MAIN_MENU_HIGH_SCORES_TEXT:
+            self.next_state = "HIGH_SCORES_STATE"
         elif choice == MAIN_MENU_QUIT_TEXT:
             self.next_state = "QUIT"
-
-    def cleanup(self):
-        return super().cleanup()

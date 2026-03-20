@@ -58,8 +58,9 @@ def get_all_anagrams_fast(letters, index, min_len=2):
             if key in index:
                 found.update(index[key])
 
-    # sort longest first (good UX)
-    sorted_words = sorted(found, key=len, reverse=True)
+
+    # sort by length DESC, then alphabetically ASC
+    sorted_words = sorted(found, key=lambda w: (-len(w), w))
 
     return {w: False for w in sorted_words}
 

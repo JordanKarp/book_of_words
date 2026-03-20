@@ -43,8 +43,8 @@ that can be formed using its letters.
 
 This includes:
 
-* Full anagrams
-* Smaller words using some letters
+- Full anagrams
+- Smaller words using some letters
 
 A puzzle is only complete
 when all valid words have been found. 100%.
@@ -72,9 +72,9 @@ the puzzle remains incomplete.
 
 Useful approach:
 
-* Try all 3-letter combinations
-* Then 4-letter combinations
-* Continue upward
+- Try all 3-letter combinations
+- Then 4-letter combinations
+- Continue upward
 
 Rearrange letters systematically.
 
@@ -119,14 +119,14 @@ To find all words:
 
 Check:
 
-* Common endings: ED, ER, ING
-* Common prefixes: RE, UN
+- Common endings: ED, ER, ING
+- Common prefixes: RE, UN
 
 Rearrange letters in a structured way:
 
-* Fix one letter, rotate others
-* Swap pairs
-* Work through positions methodically
+- Fix one letter, rotate others
+- Swap pairs
+- Work through positions methodically
 
 If you feel stuck,
 you are likely missing smaller words.
@@ -138,13 +138,13 @@ COMPLETING A PUZZLE
 
 A puzzle is complete only when:
 
-* All valid words are found
-* No missing sub-words remain
+- All valid words are found
+- No missing sub-words remain
 
 When complete:
 
-* All discovered words are added to your dictionary
-* New puzzles or systems may unlock
+- All discovered words are added to your dictionary
+- New puzzles or systems may unlock
 
 Until completion,
 no words from that puzzle are saved.
@@ -194,9 +194,9 @@ STATISTICS
 
 Displays individual performance data, including:
 
-* Puzzles completed
-* Words found
-* Time usage
+- Puzzles completed
+- Words found
+- Time usage
 
 ACHIEVEMENTS
 
@@ -210,9 +210,9 @@ SHOP (when unlocked)
 
 Allows you to spend currency or points on:
 
-* More TIME
-* Extra LIFE
-* Improved FREE usage
+- More TIME
+- Extra LIFE
+- Improved FREE usage
 
 WORDS (when unlocked)
 
@@ -233,9 +233,9 @@ not partial discovery.
 
 If a puzzle cannot be completed:
 
-* Recheck short words
-* Verify all letter combinations
-* Use FREE if available
+- Recheck short words
+- Verify all letter combinations
+- Use FREE if available
 
 The dictionary grows only through completion.
 
