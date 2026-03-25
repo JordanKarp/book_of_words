@@ -34,20 +34,20 @@ class ShopState(State):
     def run(self):
         clear_terminal()
         self.print_upgrades()
-        choice = input_ranged_int('> ', 1, 4)
-        if choice == 1 and self.user.points >= FREEBIE_PRICE:
-            self.user.points -= FREEBIE_PRICE
-            self.user.freebies += 1
-            print("Freebie purchased!")
-        elif choice == 2 and self.user.points >= EXTRA_TIME_PRICE:
-            self.user.points -= EXTRA_TIME_PRICE
-            self.user.extra_times += 1
-            print("Extra Time purchased!")
-        elif choice == 3 and self.user.points >= EXTRA_LIFE_PRICE:
-            self.user.points -= EXTRA_LIFE_PRICE
-            self.user.extra_lives += 1
-            print("Extra Life purchased!")
-        elif choice == 4:
-            self.next_state = "GAME_MENU"
-        else:
-            print('Insufficient funds.')
+        # choice = input_ranged_int('> ', 1, 4)
+        # if choice == 1 and self.user.points >= FREEBIE_PRICE:
+        #     self.user.points -= FREEBIE_PRICE
+        #     self.user.freebies += 1
+        #     print("Freebie purchased!")
+        # elif choice == 2 and self.user.points >= EXTRA_TIME_PRICE:
+        #     self.user.points -= EXTRA_TIME_PRICE
+        #     self.user.extra_times += 1
+        #     print("Extra Time purchased!")
+        # elif choice == 3 and self.user.points >= EXTRA_LIFE_PRICE:
+        #     self.user.points -= EXTRA_LIFE_PRICE
+        #     self.user.extra_lives += 1
+        #     print("Extra Life purchased!")
+        # elif choice == 4:
+        #     self.next_state = "GAME_MENU"
+        # else:
+        #     print('Insufficient funds.')

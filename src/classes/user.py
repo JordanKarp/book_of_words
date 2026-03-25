@@ -2,8 +2,9 @@ from src.data.starting_words import STARTING_WORDS
 from src.data.text_strings import *
 
 class User:
-    def __init__(self, name, unlocks=None, words_unlocked=None):
+    def __init__(self, name, unlocks=None, words_unlocked=None, points=0):
         self.name = name
+        self.points = points
         self.unlocks = set(unlocks) if unlocks is not None else set()
         self.words_unlocked = set(words_unlocked) if words_unlocked is not None else set()
         self.statistics = {
@@ -15,6 +16,7 @@ class User:
             TOTAL_FREEBIES_USED_TEXT: 0,
             TOTAL_ANAGRAMS_SOLVED_TEXT: 0,
             TOTAL_ROUNDS_PLAYED_TEXT: 0,
+            ROUNDS: {}
         }   
         self._subscribers = []
 
@@ -29,7 +31,10 @@ class User:
                     sub.reveal_word(w)
 
     def add_stats(self, game_round_stats_dict):
+
+       
         self.statistics[TOTAL_ROUNDS_PLAYED_TEXT] += 1
+        self.statistics[ROUNDS][self.statistics[TOTAL_ROUNDS_PLAYED_TEXT]] = game_round_stats_dict
         self.statistics[TOTAL_WORDS_FOUND_TEXT] += game_round_stats_dict.get(STATS_CORRECT_GUESSES_TEXT, 0)
         self.statistics[TOTAL_CORRECT_GUESSES_TEXT] += game_round_stats_dict.get(STATS_CORRECT_GUESSES_TEXT, 0)
         self.statistics[TOTAL_INCORRECT_GUESSES_TEXT] += game_round_stats_dict.get(STATS_INCORRECT_GUESSES_TEXT, 0)
@@ -37,11 +42,11 @@ class User:
         self.statistics[TOTAL_GUESSES_TEXT] += game_round_stats_dict.get(STATS_WORDS_GUESSED_TEXT, 0)
         self.statistics[TOTAL_FREEBIES_USED_TEXT] += game_round_stats_dict.get(STATS_FREEBIES_USED_TEXT, 0)
         self.statistics[TOTAL_ANAGRAMS_SOLVED_TEXT] += 1 if game_round_stats_dict.get(STATS_CORRECT_GUESSES_TEXT, 0) > 0 else 0
-        
+
     def register(self, text_obj):
         self._subscribers.append(text_obj)
     
-    def _print_vocabulary(self):
-        print("Your Vocabulary:")
-        for word in sorted(self.words_unlocked):
-            print(f"- {word}")
+    # def _print_vocabulary(self):
+    #     print("Your Vocabulary:")
+    #     for word in sorted(self.words_unlocked):
+    #         print(f"- {word}")

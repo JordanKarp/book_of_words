@@ -18,5 +18,7 @@ class StatisticsState(State):
     def run(self):
         clear_terminal()
         # TODO: DO SOMETHING WITH STATISTICS
+        for stat in self.user.statistics:
+            print(MaskedText(f"{stat}: {self.user.statistics[stat]}", self.user).render())
         input(self.return_to_menu_text.render()+'\n')
         self.next_state = "GAME_STATE"
