@@ -22,17 +22,18 @@ class User:
 
         self.learn_words(STARTING_WORDS)
 
-    def learn_words(self, new_words):
-        for word in new_words:
+    def learn_words(self, words_to_learn):
+        words_learned = []
+        for word in words_to_learn:
             w = word.lower()
             if w not in self.words_unlocked:
+                words_learned.append(w)
                 self.words_unlocked.add(w)
                 for sub in self._subscribers:
                     sub.reveal_word(w)
+        return words_learned
 
     def add_stats(self, game_round_stats_dict):
-
-       
         self.statistics[TOTAL_ROUNDS_PLAYED_TEXT] += 1
         self.statistics[ROUNDS][self.statistics[TOTAL_ROUNDS_PLAYED_TEXT]] = game_round_stats_dict
         self.statistics[TOTAL_WORDS_FOUND_TEXT] += game_round_stats_dict.get(STATS_CORRECT_GUESSES_TEXT, 0)
@@ -42,6 +43,15 @@ class User:
         self.statistics[TOTAL_GUESSES_TEXT] += game_round_stats_dict.get(STATS_WORDS_GUESSED_TEXT, 0)
         self.statistics[TOTAL_FREEBIES_USED_TEXT] += game_round_stats_dict.get(STATS_FREEBIES_USED_TEXT, 0)
         self.statistics[TOTAL_ANAGRAMS_SOLVED_TEXT] += 1 if game_round_stats_dict.get(STATS_CORRECT_GUESSES_TEXT, 0) > 0 else 0
+
+    def add_points(self, words_learned):
+        points_earned = sum(len(word) for word in words_learned)
+        self.points += points_earned
+        return points_earned
+    
+    def update_unlocks(self, words_learned):
+        pass
+            
 
     def register(self, text_obj):
         self._subscribers.append(text_obj)

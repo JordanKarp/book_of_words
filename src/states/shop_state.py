@@ -34,6 +34,7 @@ class ShopState(State):
     def run(self):
         clear_terminal()
         self.print_upgrades()
+        input()
         # choice = input_ranged_int('> ', 1, 4)
         # if choice == 1 and self.user.points >= FREEBIE_PRICE:
         #     self.user.points -= FREEBIE_PRICE

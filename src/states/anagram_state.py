@@ -114,10 +114,12 @@ class AnagramState(State):
         self.user.add_stats(self.game_stats)
 
         if round_win:
-            self.user.learn_words(list(anagram_dictionary.keys()))
-
+            new_words = self.user.learn_words(list(anagram_dictionary.keys()))
+            self.user.add_points(new_words)
+            self.user.update_unlocks(new_words)
+            
             print(self.words_found_text.render())
-            print(", ".join([w for w, found in anagram_dictionary.items() if found]))
+            print(", ".join(new_words))
             input("\n\n"+self.return_text.render())
             
     def cleanup(self):
