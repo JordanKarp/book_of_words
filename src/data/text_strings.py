@@ -27,6 +27,7 @@ SHOP_TEXT = "Shop"
 STATISTICS_TEXT = "Statistics"
 QUIT_TEXT = "Quit"
 
+NEXT_PAGE_TEXT = "Press ENTER to continue to the next page."
 RETURN_TO_MENU_TEXT = "Press ENTER to return to the main menu."
 
 WORD_PROMPT = "Word: "
