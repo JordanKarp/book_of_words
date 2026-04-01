@@ -1,12 +1,10 @@
 
-COVER_PAGE = '''
-HE BOOK OF WORDS
+INTRO_PAGE = '''BOOK OF WORDS
 
 Ananagramming the Hidden World
 
 By Jordan Karp
-'''
-TITLE_PAGE = ''''
+---
 This book explains how to find words.
 
 Words are made from letters.
@@ -16,9 +14,7 @@ your task is to find every valid word
 that can be formed from them.
 
 Only complete solutions count.
-'''
 
-TABLE_OF_CONTENTS = '''
 TABLE OF CONTENTS
 
 1. The Core Rule
@@ -56,7 +52,7 @@ after the puzzle is fully completed.
 '''
 
 
-BOOK_OF_LORE = [COVER_PAGE,TITLE_PAGE, TABLE_OF_CONTENTS, CHAPTER_1]
+BOOK_OF_LORE = [INTRO_PAGE, CHAPTER_1]
 
 
 LORE_TEXT = '''

@@ -27,7 +27,9 @@ class BookState(State):
     def run(self):
         clear_terminal()
         for i, entry in enumerate(self.lore):
+            clear_terminal()
             print(self.lore[entry].render())
+            print("-"*50)
             if i != len(self.lore)-1:
                 input("\n\n"+self.next_page_text.render())
         input(self.return_to_menu_text.render()+'\n')

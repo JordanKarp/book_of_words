@@ -42,7 +42,7 @@ class AnagramState(State):
         round_win = self.play_round(anagram_dictionary)
 
         self.resolve_round(round_win, anagram_dictionary)
-        
+        # self.next_state = "RESULTS_STATE"
         self.next_state = "GAME_STATE"
 
     def play_round(self, anagram_dictionary):
@@ -55,9 +55,10 @@ class AnagramState(State):
             print("-" * 20)
 
             # Display stats
-            print(MaskedText(STATS_TEXT, self.user).render())
-            for stat, value in self.game_stats.items():
-                print(f"{MaskedText(stat, self.user).render()}: {value}")
+            if "STATS" in self.user.unlocks:
+                print(MaskedText(STATS_TEXT, self.user).render())
+                for stat, value in self.game_stats.items():
+                    print(f"{MaskedText(stat, self.user).render()}: {value}")
             
             # Display words and found status
             for word, found in anagram_dictionary.items():
@@ -116,8 +117,10 @@ class AnagramState(State):
         if round_win:
             new_words = self.user.learn_words(list(anagram_dictionary.keys()))
             self.user.add_points(new_words)
-            self.user.update_unlocks(new_words)
-            
+            unlocks = self.user.update_unlocks(new_words)
+            if unlocks:
+                print(MaskedText(f"Unlocked {unlocks}!", self.user).render())
+
             print(self.words_found_text.render())
             print(", ".join(new_words))
             input("\n\n"+self.return_text.render())

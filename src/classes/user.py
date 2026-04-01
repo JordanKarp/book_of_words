@@ -50,7 +50,13 @@ class User:
         return points_earned
     
     def update_unlocks(self, words_learned):
-        pass
+        for word in words_learned:
+            if word.upper() == "STATS":
+                self.unlocks.add("STATS")
+                return "STATS"
+            if word.upper() == "SHOP":
+                self.unlocks.add("SHOP")
+                
             
 
     def register(self, text_obj):

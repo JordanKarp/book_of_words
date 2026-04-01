@@ -29,15 +29,21 @@ class GameState(State):
         self.shop_text = MaskedText(SHOP_TEXT, self.user)
         self.statistics_text = MaskedText(STATISTICS_TEXT, self.user)
         self.quit_text = MaskedText(QUIT_TEXT, self.user)
-   
+
+    def get_menu_options(self):
+        options = [self.game_menu_text.render(), self.book_text.render()]
+        if "SHOP" in self.user.unlocks:
+            options.append(self.shop_text.render())
+        if "STATS" in self.user.unlocks:
+            options.append(self.statistics_text.render())
+        options.append(self.quit_text.render())
+        return options
+
     def run(self):
         clear_terminal()
         print(self.title_text.render())
-        choice = get_option("> ", [self.game_menu_text.render(), 
-                                   self.book_text.render(), 
-                                   self.shop_text.render(),
-                                   self.statistics_text.render(),
-                                   self.quit_text.render()])    
+        menu_options = self.get_menu_options()
+        choice = get_option("> ", menu_options)    
         
         if choice == self.game_menu_text.render():            
             self.next_state = "ANAGRAM_STATE"
