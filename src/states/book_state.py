@@ -2,8 +2,9 @@ from src.utilities.state import State
 from src.utilities.terminal_utilities import clear_terminal, get_option
 from src.utilities.masked_text import MaskedText
 
-from src.data.lore import LORE_TEXT
-from src.data.lore import BOOK_OF_LORE
+# from src.data.lore import LORE_TEXT
+# from src.data.lore import BOOK_OF_LORE
+from src.data.book_of_lore import BOOK_OF_WORDS_LORE
 from src.data.text_strings import RETURN_TO_MENU_TEXT, NEXT_PAGE_TEXT
 
 
@@ -20,9 +21,13 @@ class BookState(State):
         self.next_page_text = MaskedText(NEXT_PAGE_TEXT, self.user)
         self.return_to_menu_text = MaskedText(RETURN_TO_MENU_TEXT, self.user)
 
+    # def setup_lore(self):
+    #     for i, entry in enumerate(BOOK_OF_LORE):
+    #         self.lore[i] = MaskedText(entry, self.user)
     def setup_lore(self):
-        for i, entry in enumerate(BOOK_OF_LORE):
-            self.lore[i] = MaskedText(entry, self.user)
+        for entry in BOOK_OF_WORDS_LORE:
+            if entry.unlocked:
+                self.lore[entry.title] = MaskedText(entry.content, self.user)
 
     def run(self):
         clear_terminal()
