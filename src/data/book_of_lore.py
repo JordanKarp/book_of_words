@@ -11,6 +11,7 @@ BOOK_OF_WORDS_LORE = [
         title="Chapter 1: The Core Rule",
         content=CHAPTER_1,
         unlocked=True,
+        
     ),
     # Add more chapters as needed
 ]

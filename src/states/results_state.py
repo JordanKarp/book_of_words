@@ -2,7 +2,6 @@ from src.utilities.state import State
 from src.utilities.terminal_utilities import clear_terminal, get_option
 from src.utilities.masked_text import MaskedText
 
-from src.data.lore import LORE_TEXT
 from src.data.text_strings import RETURN_TO_MENU_TEXT
 
 
