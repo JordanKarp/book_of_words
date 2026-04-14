@@ -83,6 +83,13 @@ class AnagramState(State):
 
                 # Get user guess
                 word = input('> ').strip().lower()
+
+                # Is it a special command?
+                if word == "q":
+                    playing = False
+                    return False
+
+
                 self.game_stats[STATS_WORDS_GUESSED_TEXT] += 1
 
                 # Repeat guess?
@@ -123,6 +130,10 @@ class AnagramState(State):
 
             print(self.words_found_text.render())
             print(", ".join(new_words))
+            input("\n\n"+self.return_text.render())
+        else:
+            print(MaskedText("Better luck next time!", self.user).render())
+            print(MaskedText("0 words learned.", self.user).render())
             input("\n\n"+self.return_text.render())
             
     def cleanup(self):
