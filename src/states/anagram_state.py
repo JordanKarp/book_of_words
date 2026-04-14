@@ -30,7 +30,8 @@ class AnagramState(State):
                            STATS_CORRECT_GUESSES_TEXT: 0, 
                            STATS_REPEAT_GUESSES_TEXT: 0, 
                            STATS_INCORRECT_GUESSES_TEXT: 0, 
-                           STATS_INELIGIBLE_GUESSES_TEXT: 0}
+                           STATS_INELIGIBLE_GUESSES_TEXT: 0,
+                           STATS_FREEBIES_USED_TEXT: 0}
         self.possible_messages = [MaskedText(msg, self.user) for msg in GAME_MESSAGES]
 
     def run(self):
@@ -88,6 +89,14 @@ class AnagramState(State):
                 if word == "q":
                     playing = False
                     return False
+                elif word == 'f' and self.user.freebies > 0:
+                    word = self.get_freebie(anagram_dictionary, guessed_words)
+                    if word:
+                        self.current_message = self.possible_messages[4].render().format(word)
+                        self.game_stats[STATS_FREEBIES_USED_TEXT] += 1
+                        anagram_dictionary[word] = True
+                        self.user.freebies -= 1
+                        break
 
 
                 self.game_stats[STATS_WORDS_GUESSED_TEXT] += 1
@@ -130,22 +139,11 @@ class AnagramState(State):
         self.persist['round_win'] = round_win
         self.persist['new_words'] = new_words   
 
-        # if round_win:
-        #     new_words = self.user.learn_words(list(anagram_dictionary.keys()))
-        #     self.persist["new_words"] = new_words
-        #     self.user.add_points(new_words)
-        #     unlocks = self.user.update_unlocks(new_words)
-        #     if unlocks:
-        #         print(MaskedText(f"Unlocked {unlocks}!", self.user).render())
-
-        #     print(self.words_found_text.render())
-        #     print(", ".join(new_words))
-        #     input("\n\n"+self.return_text.render())
-        # else:
-        #     self.persist["new_words"] = []
-        #     print(MaskedText("Better luck next time!", self.user).render())
-        #     print(MaskedText("0 words learned.", self.user).render())
-        #     input("\n\n"+self.return_text.render())
+    def get_freebie(self, anagram_dictionary, guessed_words):
+        for word, found in anagram_dictionary.items():
+            if not found and word not in guessed_words:
+                return word
+        return None
             
     def cleanup(self):
         self.persist['user'] = self.user

@@ -5,6 +5,7 @@ class User:
     def __init__(self, name, unlocks=None, words_unlocked=None, points=0):
         self.name = name
         self.points = points
+        self.freebies = 3
         self.unlocks = set(unlocks) if unlocks is not None else set()
         self.words_unlocked = set(words_unlocked) if words_unlocked is not None else set()
         self.statistics = {

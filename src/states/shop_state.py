@@ -1,5 +1,6 @@
 from src.utilities.state import State
-from src.utilities.terminal_utilities import clear_terminal
+from src.utilities.terminal_utilities import clear_terminal, get_option
+from src.utilities.masked_text import MaskedText
 
 FREEBIE_PRICE = 50
 EXTRA_TIME_PRICE = 50
@@ -23,6 +24,7 @@ class ShopState(State):
         self.persist = persistent
         self.user = self.persist["user"]
 
+
     def print_upgrades(self):
         print(f'You have currently have {self.user.points} points.')
         print("~~~~~~~" * 6)
@@ -31,24 +33,18 @@ class ShopState(State):
         print(f'3. Buy extra life\t{EXTRA_LIFE_PRICE}')
         print('4. Back to Game Menu')
 
+
     def run(self):
-        clear_terminal()
-        self.print_upgrades()
-        input()
-        # choice = input_ranged_int('> ', 1, 4)
-        # if choice == 1 and self.user.points >= FREEBIE_PRICE:
-        #     self.user.points -= FREEBIE_PRICE
-        #     self.user.freebies += 1
-        #     print("Freebie purchased!")
-        # elif choice == 2 and self.user.points >= EXTRA_TIME_PRICE:
-        #     self.user.points -= EXTRA_TIME_PRICE
-        #     self.user.extra_times += 1
-        #     print("Extra Time purchased!")
-        # elif choice == 3 and self.user.points >= EXTRA_LIFE_PRICE:
-        #     self.user.points -= EXTRA_LIFE_PRICE
-        #     self.user.extra_lives += 1
-        #     print("Extra Life purchased!")
-        # elif choice == 4:
-        #     self.next_state = "GAME_MENU"
-        # else:
-        #     print('Insufficient funds.')
+        while True:
+            clear_terminal()
+            shop_options = self.get_shop_options()
+            choice = get_option("> ", shop_options)    
+
+            self.next_state = "GAME_STATE"
+
+    def get_shop_options(self):
+        options = [f"Buy freebie word\t{FREEBIE_PRICE}", 
+                f"Buy 30s extra time\t{EXTRA_TIME_PRICE}", 
+                f"Buy extra life\t{EXTRA_LIFE_PRICE}", 
+                "Back to Game Menu"]
+        return options
