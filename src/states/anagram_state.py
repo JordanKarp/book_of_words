@@ -47,7 +47,7 @@ class AnagramState(State):
         # self.next_state = "GAME_STATE"
 
     def play_round(self, anagram_dictionary):
-        guessed_words = set()
+        guessed_words = set(word for word, found in anagram_dictionary.items() if found)
         playing = True
         while playing:
             clear_terminal()
