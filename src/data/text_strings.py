@@ -23,12 +23,13 @@ GAME_TITLE_TEXT = "Book of Words:"
 
 PLAY_TEXT = "Play"
 BOOK_TEXT = "Book of Words"
+USER_TEXT = "User"
 SHOP_TEXT = "Shop"
 STATISTICS_TEXT = "Statistics"
 QUIT_TEXT = "Quit"
 
-NEXT_PAGE_TEXT = "Press ENTER to continue to the next page."
-RETURN_TO_MENU_TEXT = "Press ENTER to return to the main menu."
+NEXT_PAGE_TEXT = "Press ENTER (↵) to continue to the next page."
+RETURN_TO_MENU_TEXT = "Press ENTER (↵) to return to the main menu."
 
 WORD_PROMPT = "Word: "
 WORD_PROMPT_ERROR = "Valid words only. Try again!"

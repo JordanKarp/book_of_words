@@ -38,7 +38,6 @@ class AnagramState(State):
         self.anagram = get_valid_word(self.word_text.render(), self.all_words_set, self.error_text.render())
 
         full_anagram_dictionary = get_all_anagrams_fast(self.anagram, self.all_words_index)
-        # mark the words we already know as found so we can display them during the round
         anagram_dictionary = {word: (word in self.user.words_unlocked) for word in full_anagram_dictionary}
         round_win = self.play_round(anagram_dictionary)
 
@@ -92,6 +91,7 @@ class AnagramState(State):
 
 
                 self.game_stats[STATS_WORDS_GUESSED_TEXT] += 1
+                # self.game_stats[STATS_WORDS_GUESSED_LIST]append(word)
 
                 # Repeat guess?
                 if word in guessed_words:
@@ -124,20 +124,28 @@ class AnagramState(State):
 
         if round_win:
             new_words = self.user.learn_words(list(anagram_dictionary.keys()))
-            self.persist["new_words"] = new_words
-            self.user.add_points(new_words)
-            unlocks = self.user.update_unlocks(new_words)
-            if unlocks:
-                print(MaskedText(f"Unlocked {unlocks}!", self.user).render())
-
-            print(self.words_found_text.render())
-            print(", ".join(new_words))
-            input("\n\n"+self.return_text.render())
         else:
-            self.persist["new_words"] = []
-            print(MaskedText("Better luck next time!", self.user).render())
-            print(MaskedText("0 words learned.", self.user).render())
-            input("\n\n"+self.return_text.render())
+            new_words = []
+
+        self.persist['round_win'] = round_win
+        self.persist['new_words'] = new_words   
+
+        # if round_win:
+        #     new_words = self.user.learn_words(list(anagram_dictionary.keys()))
+        #     self.persist["new_words"] = new_words
+        #     self.user.add_points(new_words)
+        #     unlocks = self.user.update_unlocks(new_words)
+        #     if unlocks:
+        #         print(MaskedText(f"Unlocked {unlocks}!", self.user).render())
+
+        #     print(self.words_found_text.render())
+        #     print(", ".join(new_words))
+        #     input("\n\n"+self.return_text.render())
+        # else:
+        #     self.persist["new_words"] = []
+        #     print(MaskedText("Better luck next time!", self.user).render())
+        #     print(MaskedText("0 words learned.", self.user).render())
+        #     input("\n\n"+self.return_text.render())
             
     def cleanup(self):
         self.persist['user'] = self.user

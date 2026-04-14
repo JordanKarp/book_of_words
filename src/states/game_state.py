@@ -27,11 +27,14 @@ class GameState(State):
         self.game_menu_text = MaskedText(PLAY_TEXT, self.user)
         self.book_text = MaskedText(BOOK_TEXT, self.user)
         self.shop_text = MaskedText(SHOP_TEXT, self.user)
+        self.user_text = MaskedText(USER_TEXT, self.user)
         self.statistics_text = MaskedText(STATISTICS_TEXT, self.user)
         self.quit_text = MaskedText(QUIT_TEXT, self.user)
 
     def get_menu_options(self):
         options = [self.game_menu_text.render(), self.book_text.render()]
+        if "USER" in self.user.unlocks:
+            options.append(self.user_text.render())
         if "SHOP" in self.user.unlocks:
             options.append(self.shop_text.render())
         if "STATS" in self.user.unlocks:

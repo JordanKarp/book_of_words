@@ -43,12 +43,11 @@ class MainMenuState(State):
         if choice == MAIN_MENU_NEW_GAME_TEXT:
             name = self.prompt_name()
             self.persist["user"] = User(name)
-            self.next_state = "GAME_STATE"
+            self.next_state = "NEW_GAME_STATE"
         elif choice == MAIN_MENU_LOAD_GAME_TEXT:
             name = self.prompt_name()
             self.persist["user"] = self.load_user(name)
             self.next_state = "GAME_STATE"
-
         elif choice == MAIN_MENU_SETTINGS_TEXT:
             self.next_state = "SETTINGS_STATE"
         elif choice == MAIN_MENU_HIGH_SCORES_TEXT:

@@ -35,7 +35,7 @@ class User:
 
     def add_stats(self, game_round_stats_dict):
         self.statistics[TOTAL_ROUNDS_PLAYED_TEXT] += 1
-        self.statistics[ROUNDS][self.statistics[TOTAL_ROUNDS_PLAYED_TEXT]] = game_round_stats_dict
+        # self.statistics[ROUNDS][self.statistics[TOTAL_ROUNDS_PLAYED_TEXT]] = game_round_stats_dict
         self.statistics[TOTAL_WORDS_FOUND_TEXT] += game_round_stats_dict.get(STATS_CORRECT_GUESSES_TEXT, 0)
         self.statistics[TOTAL_CORRECT_GUESSES_TEXT] += game_round_stats_dict.get(STATS_CORRECT_GUESSES_TEXT, 0)
         self.statistics[TOTAL_INCORRECT_GUESSES_TEXT] += game_round_stats_dict.get(STATS_INCORRECT_GUESSES_TEXT, 0)
@@ -56,6 +56,8 @@ class User:
                 return "STATS"
             if word.upper() == "SHOP":
                 self.unlocks.add("SHOP")
+            if word.upper() == "USER":
+                self.unlocks.add("USER")
                 
             
 
