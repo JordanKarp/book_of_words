@@ -37,13 +37,14 @@ class AnagramState(State):
         # clear_terminal()
         self.anagram = get_valid_word(self.word_text.render(), self.all_words_set, self.error_text.render())
 
-        anagram_dictionary = get_all_anagrams_fast(self.anagram, self.all_words_index)
-   
+        full_anagram_dictionary = get_all_anagrams_fast(self.anagram, self.all_words_index)
+        # mark the words we already know as found so we can display them during the round
+        anagram_dictionary = {word: (word in self.user.words_unlocked) for word in full_anagram_dictionary}
         round_win = self.play_round(anagram_dictionary)
 
         self.resolve_round(round_win, anagram_dictionary)
-        # self.next_state = "RESULTS_STATE"
-        self.next_state = "GAME_STATE"
+        self.next_state = "RESULTS_STATE"
+        # self.next_state = "GAME_STATE"
 
     def play_round(self, anagram_dictionary):
         guessed_words = set()
@@ -123,6 +124,7 @@ class AnagramState(State):
 
         if round_win:
             new_words = self.user.learn_words(list(anagram_dictionary.keys()))
+            self.persist["new_words"] = new_words
             self.user.add_points(new_words)
             unlocks = self.user.update_unlocks(new_words)
             if unlocks:
@@ -132,6 +134,7 @@ class AnagramState(State):
             print(", ".join(new_words))
             input("\n\n"+self.return_text.render())
         else:
+            self.persist["new_words"] = []
             print(MaskedText("Better luck next time!", self.user).render())
             print(MaskedText("0 words learned.", self.user).render())
             input("\n\n"+self.return_text.render())

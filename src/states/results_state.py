@@ -17,7 +17,10 @@ class ResultsState(State):
     def run(self):
         clear_terminal()
         # TODO: DO SOMETHING WITH STATISTICS
+        for word in self.persist.get("new_words", []):
+            print(MaskedText(f"Learned: {word}", self.user).render())
         for stat in self.user.statistics:
+            # print(f"{stat}: {self.user.statistics[stat]}")
             print(MaskedText(f"{stat}: {self.user.statistics[stat]}", self.user).render())
         input(self.return_to_menu_text.render()+'\n')
         self.next_state = "GAME_STATE"
