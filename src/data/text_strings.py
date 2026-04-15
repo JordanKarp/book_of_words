@@ -60,3 +60,9 @@ TOTAL_INELIGIBLE_GUESSES_TEXT = "Total Ineligible Guesses"
 TOTAL_GUESSES_TEXT = "Total Guesses"
 TOTAL_FREEBIES_USED_TEXT = "Total Freebies Used"
 TOTAL_ANAGRAMS_SOLVED_TEXT = "Total Anagrams Solved"
+
+
+SHOP_INTRO_TEXT = "Welcome to the shop! You have {} points. What would you like to buy?"
+SHOP_OPTION_FREEBIE_TEXT = "Buy Freebie ({} points)"
+SHOP_OPTION_EXTRA_LIFE_TEXT = "Buy Extra Life ({} points)"
+SHOP_OPTIONS = [SHOP_OPTION_FREEBIE_TEXT, SHOP_OPTION_EXTRA_LIFE_TEXT]
