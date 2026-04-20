@@ -6,9 +6,9 @@ from src.utilities.terminal_utilities import clear_terminal, get_option
 from src.utilities.masked_text import MaskedText
 from src.utilities.word_utilities import load_words
 
-from src.data.text_strings import * 
+from src.data.text_strings import *
 
-WORDS_PATH = Path(".") / "src"/ "data"/ "word_list.txt"
+WORDS_PATH = Path(".") / "src" / "data" / "word_list.txt"
 SAVES_PATH = Path(".") / "saves"
 
 
@@ -46,9 +46,9 @@ class GameState(State):
         clear_terminal()
         print(self.title_text.render())
         menu_options = self.get_menu_options()
-        choice = get_option("> ", menu_options)    
-        
-        if choice == self.game_menu_text.render():            
+        choice = get_option("> ", menu_options)
+
+        if choice == self.game_menu_text.render():
             self.next_state = "ANAGRAM_STATE"
         elif choice == self.book_text.render():
             self.next_state = "BOOK_STATE"
@@ -59,16 +59,12 @@ class GameState(State):
         elif choice == self.quit_text.render():
             self.save_game()
             self.next_state = "QUIT"
-        
 
     def save_game(self):
         filename = f"{self.user.name}.dat"
         with open(SAVES_PATH / filename, "wb") as f:
             pickle.dump(self.user, f)
-        
-        
-    def cleanup(self):
-        self.persist['user'] = self.user
-        self.persist['all_words'] = self.all_words
 
-    
+    def cleanup(self):
+        self.persist["user"] = self.user
+        self.persist["all_words"] = self.all_words

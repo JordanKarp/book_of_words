@@ -1,15 +1,16 @@
-
 HEADER_TEXT = "\nBook of Words!\n~~~~~~~~~~~~~~~~~"
 MAIN_MENU_NEW_GAME_TEXT = "New Game"
 MAIN_MENU_LOAD_GAME_TEXT = "Load Game"
 MAIN_MENU_SETTINGS_TEXT = "Settings (TODO)"
 MAIN_MENU_HIGH_SCORES_TEXT = "High Scores (TODO)"
 MAIN_MENU_QUIT_TEXT = "Quit"
-MAIN_MENU_OPTIONS = [MAIN_MENU_NEW_GAME_TEXT, 
-                    MAIN_MENU_LOAD_GAME_TEXT, 
-                    MAIN_MENU_SETTINGS_TEXT, 
-                    MAIN_MENU_HIGH_SCORES_TEXT, 
-                    MAIN_MENU_QUIT_TEXT]
+MAIN_MENU_OPTIONS = [
+    MAIN_MENU_NEW_GAME_TEXT,
+    MAIN_MENU_LOAD_GAME_TEXT,
+    MAIN_MENU_SETTINGS_TEXT,
+    MAIN_MENU_HIGH_SCORES_TEXT,
+    MAIN_MENU_QUIT_TEXT,
+]
 NAME_PROMPT_TEXT = "Who is playing?\n"
 
 NO_SAVE_FOUND_TEXT = "Game not found, starting a new game instead?"
@@ -36,7 +37,7 @@ WORD_PROMPT_ERROR = "Valid words only. Try again!"
 
 WORDS_FOUND_TEXT = "Words Found: "
 
-STATS_TEXT= "Stats:"
+STATS_TEXT = "Stats:"
 STATS_WORDS_GUESSED_TEXT = "Words Guessed"
 STATS_CORRECT_GUESSES_TEXT = "Correct Guesses"
 STATS_REPEAT_GUESSES_TEXT = "Repeat Guesses"
@@ -49,9 +50,15 @@ MESSAGE_REPEAT_GUESS_TEXT = "You already guessed {}!"
 MESSAGE_INELIGIBLE_GUESS_TEXT = "That word can't be made from the anagram letters!"
 MESSAGE_INCORRECT_GUESS_TEXT = "That word isn't in the list of valid words!"
 MESSAGE_FREEBIE_USED_TEXT = "You used a freebie! You found the word {}!"
-GAME_MESSAGES = [MESSAGE_CORRECT_GUESS_TEXT, MESSAGE_REPEAT_GUESS_TEXT, MESSAGE_INELIGIBLE_GUESS_TEXT, MESSAGE_INCORRECT_GUESS_TEXT, MESSAGE_FREEBIE_USED_TEXT]
+GAME_MESSAGES = [
+    MESSAGE_CORRECT_GUESS_TEXT,
+    MESSAGE_REPEAT_GUESS_TEXT,
+    MESSAGE_INELIGIBLE_GUESS_TEXT,
+    MESSAGE_INCORRECT_GUESS_TEXT,
+    MESSAGE_FREEBIE_USED_TEXT,
+]
 
-ROUNDS = 'Rounds'
+ROUNDS = "Rounds"
 TOTAL_ROUNDS_PLAYED_TEXT = "Total Rounds Played"
 TOTAL_WORDS_FOUND_TEXT = "Total Words Found"
 TOTAL_CORRECT_GUESSES_TEXT = "Total Correct Guesses"

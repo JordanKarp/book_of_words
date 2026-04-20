@@ -29,22 +29,20 @@ class ShopState(State):
         self.shop_freebie_text = MaskedText(SHOP_OPTION_FREEBIE_TEXT, self.user)
         self.shop_extra_life_text = MaskedText(SHOP_OPTION_EXTRA_LIFE_TEXT, self.user)
 
-
     def print_upgrades(self):
-        print(f'You have currently have {self.user.points} points.')
+        print(f"You have currently have {self.user.points} points.")
         print("~~~~~~~" * 6)
-        print(f'1. Buy freebie word\t{FREEBIE_PRICE}')
-        print(f'2. Buy 30s extra time\t{EXTRA_TIME_PRICE}')
-        print(f'3. Buy extra life\t{EXTRA_LIFE_PRICE}')
-        print('4. Back to Game Menu')
-
+        print(f"1. Buy freebie word\t{FREEBIE_PRICE}")
+        print(f"2. Buy 30s extra time\t{EXTRA_TIME_PRICE}")
+        print(f"3. Buy extra life\t{EXTRA_LIFE_PRICE}")
+        print("4. Back to Game Menu")
 
     def run(self):
         while True:
             clear_terminal()
             print(self.shop_intro_text.render())
             shop_options = self.get_shop_options()
-            choice = get_option("> ", shop_options)    
+            choice = get_option("> ", shop_options)
             # if choice == 'Buy freebie word\t{FREEBIE_PRICE}'.format(FREEBIE_PRICE=FREEBIE_PRICE):
             #     if self.user.points >= FREEBIE_PRICE:
             #         self.user.points -= FREEBIE_PRICE

@@ -1,5 +1,5 @@
 from src.utilities.state import State
-from src.utilities.terminal_utilities import clear_terminal, get_option
+from src.utilities.terminal_utilities import clear_terminal
 from src.utilities.masked_text import MaskedText
 
 # from src.data.lore import LORE_TEXT
@@ -7,12 +7,14 @@ from src.utilities.masked_text import MaskedText
 from src.data.book_of_lore import BOOK_OF_WORDS_LORE
 from src.data.text_strings import RETURN_TO_MENU_TEXT, NEXT_PAGE_TEXT
 
+LINE_LENGTH = 50
+LINE_CHAR = "-"
+
 
 class BookState(State):
     def __init__(self):
         super().__init__()
         self.lore = {}
-
 
     def startup(self, persistent=None):
         super().startup(persistent)
@@ -33,9 +35,10 @@ class BookState(State):
         clear_terminal()
         for i, entry in enumerate(self.lore):
             clear_terminal()
+            print(f"{LINE_CHAR}{entry.ljust(LINE_LENGTH-1, LINE_CHAR)}\n")
             print(self.lore[entry].render())
-            print("-"*50)
-            if i != len(self.lore)-1:
-                input("\n\n"+self.next_page_text.render())
-        input(self.return_to_menu_text.render()+'\n')
+            print(LINE_CHAR * LINE_LENGTH)
+            if i != len(self.lore) - 1:
+                input("\n\n" + self.next_page_text.render())
+        input(self.return_to_menu_text.render() + "\n")
         self.next_state = "GAME_STATE"

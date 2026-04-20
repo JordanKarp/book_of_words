@@ -1,5 +1,5 @@
 from src.utilities.state import State
-from src.utilities.terminal_utilities import clear_terminal, get_option
+from src.utilities.terminal_utilities import clear_terminal
 from src.utilities.masked_text import MaskedText
 
 from src.data.text_strings import RETURN_TO_MENU_TEXT
@@ -18,6 +18,8 @@ class StatisticsState(State):
         clear_terminal()
         # TODO: DO SOMETHING WITH STATISTICS
         for stat in self.user.statistics:
-            print(MaskedText(f"{stat}: {self.user.statistics[stat]}", self.user).render())
-        input(self.return_to_menu_text.render()+'\n')
+            print(
+                MaskedText(f"{stat}: {self.user.statistics[stat]}", self.user).render()
+            )
+        input(self.return_to_menu_text.render() + "\n")
         self.next_state = "GAME_STATE"
