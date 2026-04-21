@@ -66,5 +66,6 @@ class GameState(State):
             pickle.dump(self.user, f)
 
     def cleanup(self):
+        self.save_game()
         self.persist["user"] = self.user
         self.persist["all_words"] = self.all_words

@@ -23,9 +23,6 @@ class BookState(State):
         self.next_page_text = MaskedText(NEXT_PAGE_TEXT, self.user)
         self.return_to_menu_text = MaskedText(RETURN_TO_MENU_TEXT, self.user)
 
-    # def setup_lore(self):
-    #     for i, entry in enumerate(BOOK_OF_LORE):
-    #         self.lore[i] = MaskedText(entry, self.user)
     def setup_lore(self):
         for entry in BOOK_OF_WORDS_LORE:
             if entry.unlocked:
@@ -35,7 +32,8 @@ class BookState(State):
         clear_terminal()
         for i, entry in enumerate(self.lore):
             clear_terminal()
-            print(f"{LINE_CHAR}{entry.ljust(LINE_LENGTH-1, LINE_CHAR)}\n")
+            text = f"{entry} "
+            print(f"{LINE_CHAR} {text.ljust(LINE_LENGTH-4, LINE_CHAR)} {i}\n")
             print(self.lore[entry].render())
             print(LINE_CHAR * LINE_LENGTH)
             if i != len(self.lore) - 1:
