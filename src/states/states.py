@@ -10,7 +10,7 @@ from src.states.shop_state import ShopState
 from src.states.statistics_state import StatisticsState
 
 states_list = {
-    "MAIN_MENU": MainMenuState(),
+    "MAIN_MENU_STATE": MainMenuState(),
     "NEW_GAME_STATE": NewGameState(),
     "GAME_STATE": GameState(),
     "BOOK_STATE": BookState(),

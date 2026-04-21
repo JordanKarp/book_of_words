@@ -15,6 +15,7 @@ class StatisticsState(State):
         self.user = persistent.get("user", None)
         self.all_words = persistent.get("all_words", None)
         self.length_text = MaskedText("Length: ", self.user)
+        self.letter_word_text = MaskedText("Letter words: ", self.user)
         self.return_to_menu_text = MaskedText(RETURN_TO_MENU_TEXT, self.user)
         self.user_word_count = self.get_word_count_by_length()
         self.total_word_count = self.get_total_word_count_by_length()
@@ -23,15 +24,17 @@ class StatisticsState(State):
     def get_word_count_by_length(self):
         user_word_count = {}
         for word in self.user.words_unlocked:
-            length = len(word)
-            user_word_count[length] = user_word_count.get(length, 0) + 1
+            if not word.isdigit():
+                length = len(word)
+                user_word_count[length] = user_word_count.get(length, 0) + 1
         return user_word_count
     
     def get_total_word_count_by_length(self):
         total_word_count = {}
         for word in self.all_words:
-            length = len(word)
-            total_word_count[length] = total_word_count.get(length, 0) + 1
+            if not word.isdigit():
+                length = len(word)
+                total_word_count[length] = total_word_count.get(length, 0) + 1
         return total_word_count
     
     def run(self):
@@ -40,7 +43,8 @@ class StatisticsState(State):
         # progress with number of words learned by length
         for num in range(2, 8):
             count = self.user_word_count.get(num, 0)
-            bar = ProgressBar(total=self.total_word_count.get(num, 10), prefix=f"{num}-letter words: ")
+            total = self.total_word_count.get(num, 0)
+            bar = ProgressBar(total=total, prefix=f"{num}-{self.letter_word_text.render()}")
             bar.set(count)
             bar.display()
             print()  # move to next line after each bar

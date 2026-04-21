@@ -38,5 +38,5 @@ class BookState(State):
             print(LINE_CHAR * LINE_LENGTH)
             if i != len(self.lore) - 1:
                 input("\n\n" + self.next_page_text.render())
-        input(self.return_to_menu_text.render() + "\n")
+        input(self.return_to_menu_text.render())
         self.next_state = "GAME_STATE"

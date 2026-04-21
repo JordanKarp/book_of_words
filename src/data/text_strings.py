@@ -1,8 +1,8 @@
 HEADER_TEXT = "\nBook of Words!\n~~~~~~~~~~~~~~~~~"
 MAIN_MENU_NEW_GAME_TEXT = "New Game"
 MAIN_MENU_LOAD_GAME_TEXT = "Load Game"
-MAIN_MENU_SETTINGS_TEXT = "Settings (TODO)"
-MAIN_MENU_HIGH_SCORES_TEXT = "High Scores (TODO)"
+MAIN_MENU_SETTINGS_TEXT = "Settings"
+MAIN_MENU_HIGH_SCORES_TEXT = "High Scores"
 MAIN_MENU_QUIT_TEXT = "Quit"
 MAIN_MENU_OPTIONS = [
     MAIN_MENU_NEW_GAME_TEXT,
@@ -13,6 +13,7 @@ MAIN_MENU_OPTIONS = [
 ]
 NAME_PROMPT_TEXT = "Who is playing?\n"
 
+AVAILABLE_SAVES_TEXT = "Available saves: "
 NO_SAVE_FOUND_TEXT = "Game not found, starting a new game instead?"
 
 YES_OR_NO_TEXT = "[y/n]\n"
@@ -27,12 +28,11 @@ BOOK_TEXT = "Book of Words"
 USER_TEXT = "User"
 WORDS_TEXT = "Words"
 SHOP_TEXT = "Shop"
-STATISTICS_TEXT = "Statistics"
+STATISTICS_TEXT = "Stats"
 QUIT_TEXT = "Quit"
 
-NEXT_PAGE_TEXT = "Press ENTER (↵) to continue to the next page."
-RETURN_TO_MENU_TEXT = "Press ENTER (↵) to return to the main menu."
-
+NEXT_PAGE_TEXT = "\n" + "-" * 45 + "\nPress ENTER (↵) to continue to the next page.\n"
+RETURN_TO_MENU_TEXT = "\n" + "-" * 43 + "\nPress ENTER (↵) to return to the main menu.\n" 
 WORD_PROMPT = "Word: "
 WORD_PROMPT_ERROR = "Valid words only. Try again!"
 
@@ -46,11 +46,11 @@ STATS_INCORRECT_GUESSES_TEXT = "Incorrect Guesses"
 STATS_INELIGIBLE_GUESSES_TEXT = "Ineligible Guesses"
 STATS_FREEBIES_USED_TEXT = "Freebies Used"
 
-MESSAGE_CORRECT_GUESS_TEXT = "Correct! {} is an anagram of {}!"
+MESSAGE_CORRECT_GUESS_TEXT = "✓ - Correct! {} is an anagram of {}!"
 MESSAGE_REPEAT_GUESS_TEXT = "You already guessed {}!"
-MESSAGE_INELIGIBLE_GUESS_TEXT = "That word can't be made from the anagram letters!"
-MESSAGE_INCORRECT_GUESS_TEXT = "That word isn't in the list of valid words!"
-MESSAGE_FREEBIE_USED_TEXT = "You used a freebie! You found the word {}!"
+MESSAGE_INELIGIBLE_GUESS_TEXT = "X - That word can't be made from the anagram letters!"
+MESSAGE_INCORRECT_GUESS_TEXT = "X - That word isn't in the list of valid words!"
+MESSAGE_FREEBIE_USED_TEXT = "✓ - You used a freebie! You found the word {}!"
 GAME_MESSAGES = [
     MESSAGE_CORRECT_GUESS_TEXT,
     MESSAGE_REPEAT_GUESS_TEXT,

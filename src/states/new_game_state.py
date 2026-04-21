@@ -25,5 +25,5 @@ class NewGameState(State):
             ).render()
         )
 
-        input(self.return_to_menu_text.render() + "\n")
+        input(self.return_to_menu_text.render())
         self.next_state = "GAME_STATE"

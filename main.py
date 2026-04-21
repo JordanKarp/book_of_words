@@ -4,7 +4,7 @@ from src.utilities.state_manager import StateManager
 
 
 def run():
-    game_manager = StateManager(states_list, "MAIN_MENU")
+    game_manager = StateManager(states_list, "MAIN_MENU_STATE")
     game_manager.run()
 
 

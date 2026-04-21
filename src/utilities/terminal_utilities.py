@@ -6,17 +6,6 @@ def clear_terminal():
     _ = os.system("cls") if os.name == "nt" else os.system("clear")
 
 
-# def input_ranged_int(prompt, min, max):
-#     while True:
-#         try:
-#             value = int(input(prompt))
-#             if min <= value <= max:
-#                 return value
-#             else:
-#                 print("Invalid input. Please try again!")
-#         except ValueError:
-#             print("Invalid input. Please try again!")
-
 def _get_number(prompt):
     while True:
         try:
@@ -53,3 +42,10 @@ def clear_terminal():
     # For Mac and Linux (posix)
     else:
         _ = os.system("clear")
+
+def get_file_names_in_directory(directory):
+    try:
+        return [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+    except FileNotFoundError:
+        print(f"Error: Directory '{directory}' not found.")
+        return []

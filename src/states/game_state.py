@@ -17,11 +17,15 @@ class GameState(State):
         super().__init__()
         self.user = None
         self.all_words = None
+        self.scoreboard = None
+        self.settings = None
 
     def startup(self, persistent=None):
         super().startup(persistent)
         self.user = persistent.get("user", None)
         self.all_words = load_words(WORDS_PATH)
+        self.scoreboard = persistent.get("scoreboard", None)
+        self.settings = persistent.get("settings", None)
 
         self.title_text = MaskedText(GAME_TITLE_TEXT, self.user)
         self.game_menu_text = MaskedText(PLAY_TEXT, self.user)
@@ -60,12 +64,18 @@ class GameState(State):
             self.save_game()
             self.next_state = "QUIT"
 
+    def add_high_score(self):
+        self.persist["scoreboard"].add_score(self.user.name, self.user.high_score)
+
     def save_game(self):
+        self.add_high_score()
         filename = f"{self.user.name}.dat"
         with open(SAVES_PATH / filename, "wb") as f:
             pickle.dump(self.user, f)
 
+
     def cleanup(self):
+        self.add_high_score()
         self.save_game()
         self.persist["user"] = self.user
         self.persist["all_words"] = self.all_words

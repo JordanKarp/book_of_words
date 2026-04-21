@@ -8,6 +8,7 @@ class User:
         self.freebies = 3
         self.unlocks = set(unlocks) if unlocks is not None else set()
         self.words_unlocked = set(words_unlocked) if words_unlocked is not None else set()
+        self.high_score = 0
         self.statistics = {
             TOTAL_WORDS_FOUND_TEXT: len(self.words_unlocked),
             TOTAL_CORRECT_GUESSES_TEXT: 0,
@@ -48,24 +49,25 @@ class User:
     def add_points(self, words_learned):
         points_earned = sum(len(word) for word in words_learned)
         self.points += points_earned
+        if self.points > self.high_score:
+            self.high_score = self.points
         return points_earned
     
     def update_unlocks(self, words_learned):
+        unlocks = []
         for word in words_learned:
             if word.upper() == "STATS":
                 self.unlocks.add("STATS")
-                return "STATS"
+                unlocks.append("STATS")
             if word.upper() == "SHOP":
                 self.unlocks.add("SHOP")
+                unlocks.append("SHOP")
             if word.upper() == "USER":
                 self.unlocks.add("USER")
-                
+                unlocks.append("USER")
+        return unlocks
             
 
     def register(self, text_obj):
         self._subscribers.append(text_obj)
     
-    # def _print_vocabulary(self):
-    #     print("Your Vocabulary:")
-    #     for word in sorted(self.words_unlocked):
-    #         print(f"- {word}")

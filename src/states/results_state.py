@@ -21,7 +21,7 @@ class ResultsState(State):
         self.process_round(self.round_win, self.new_words)
         self.display_results()
 
-        input(self.return_to_menu_text.render() + "\n")
+        input(self.return_to_menu_text.render())
         self.next_state = "GAME_STATE"
 
     def process_round(self, round_win, new_words):

@@ -1,34 +1,29 @@
 
-INTRO_PAGE = '''BOOK OF WORDS
+TITLE_PAGE = '''
 
-Ananagramming the Hidden World
+
+
+THE BOOK OF WORDS
 
 By Jordan Karp
----
-This book explains how to find words.
 
-Words are made from letters.
+'''
 
-Given a set of letters,
-your task is to find every valid word
-that can be formed from them.
+INTRO= '''
 
-Only complete solutions count.
+LEARN ALL THE 
 
-TABLE OF CONTENTS
+'''
 
+TABLE_OF_CONTENTS = '''
 1. The Core Rule
-2. Finding All Words
-3. Sub-Words
-4. Efficient Solving
-5. Completing a Puzzle
-6. Unlockable Features
-7. Systems and Menus
-8. Final Notes
+2. Unlocks
+3. Shopping
+4. Statistics
+5. The Book of Lore
 '''
 
 CHAPTER_1 = '''
-CHAPTER 1
 THE CORE RULE
 
 Each puzzle gives you a word.
