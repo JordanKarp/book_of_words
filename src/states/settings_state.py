@@ -19,6 +19,5 @@ class SettingsState(State):
         print("Settings (TODO)")
 
 
-
         input(RETURN_TO_MENU_TEXT)
         self.next_state = None

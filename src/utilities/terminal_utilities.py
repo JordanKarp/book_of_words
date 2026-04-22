@@ -49,3 +49,6 @@ def get_file_names_in_directory(directory):
     except FileNotFoundError:
         print(f"Error: Directory '{directory}' not found.")
         return []
+    
+def count_lines(string):
+    return string.count("\n") + 1

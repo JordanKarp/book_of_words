@@ -3,3 +3,6 @@ class LorePage:
         self.title = title
         self.content = content
         self.unlocked = unlocked
+
+    def unlock(self):
+        self.unlocked = True

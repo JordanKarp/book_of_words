@@ -31,8 +31,8 @@ SHOP_TEXT = "Shop"
 STATISTICS_TEXT = "Stats"
 QUIT_TEXT = "Quit"
 
-NEXT_PAGE_TEXT = "\n" + "-" * 45 + "\nPress ENTER (↵) to continue to the next page.\n"
-RETURN_TO_MENU_TEXT = "\n" + "-" * 43 + "\nPress ENTER (↵) to return to the main menu.\n" 
+NEXT_PAGE_TEXT = "\n" + "-" * 47 + "\n Press ENTER (↵) to continue to the next page. \n" + "-" * 47 + "\n"
+RETURN_TO_MENU_TEXT = "\n" + "-" * 45 + "\n Press ENTER (↵) to return to the main menu. \n"+ "-" * 45 + "\n"
 WORD_PROMPT = "Word: "
 WORD_PROMPT_ERROR = "Valid words only. Try again!"
 

@@ -6,9 +6,9 @@ BOOK_OF_WORDS_LORE = [
     LorePage(title="Introduction", content=INTRO, unlocked=True),
     LorePage(title="Table of Contents", content=TABLE_OF_CONTENTS, unlocked=True),  
     LorePage(
-        title="Chapter 1: The Core Rule",
+        title="Words of the Game",
         content=CHAPTER_1,
-        unlocked=True,
+        unlocked=False,
     ),
     # Add more chapters as needed
 ]

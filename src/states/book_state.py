@@ -1,5 +1,5 @@
 from src.utilities.state import State
-from src.utilities.terminal_utilities import clear_terminal
+from src.utilities.terminal_utilities import clear_terminal, count_lines
 from src.utilities.masked_text import MaskedText
 
 # from src.data.lore import LORE_TEXT
@@ -31,12 +31,16 @@ class BookState(State):
     def run(self):
         clear_terminal()
         for i, entry in enumerate(self.lore):
-            clear_terminal()
-            text = f"{entry} "
-            print(f"{LINE_CHAR} {text.ljust(LINE_LENGTH-4, LINE_CHAR)} {i}\n")
-            print(self.lore[entry].render())
-            print(LINE_CHAR * LINE_LENGTH)
+            self.print_page(entry, i)
             if i != len(self.lore) - 1:
-                input("\n\n" + self.next_page_text.render())
-        input(self.return_to_menu_text.render())
+                input(self.next_page_text.render())
+            else:
+                input(self.return_to_menu_text.render())
         self.next_state = "GAME_STATE"
+
+    def print_page(self, lore_entry, page_num):
+        clear_terminal()
+        text = f"{lore_entry} "
+        print(f"{LINE_CHAR} {text.ljust(LINE_LENGTH-4, LINE_CHAR)} {page_num}\n")
+        print(self.lore[lore_entry].render())
+        print(LINE_CHAR * LINE_LENGTH)
