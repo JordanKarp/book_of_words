@@ -1,3 +1,5 @@
+from src.classes.progress_bar import ProgressBar
+
 from src.utilities.state import State
 from src.utilities.masked_text import MaskedText
 from src.utilities.terminal_utilities import get_valid_word, clear_terminal
@@ -21,6 +23,7 @@ class AnagramState(State):
         self.user = None
         self.current_message = None
         self.timer = None
+        self.progress = None
         self.all_words = load_words("src/data/word_list.txt")
         self.all_words_index, self.all_words_set = build_index_and_word_set(
             self.all_words
@@ -32,7 +35,7 @@ class AnagramState(State):
         # self.all_words_index = persistent.get("all_words_index", None)
         self.current_message = ""
         self.timer = CountdownTimer(0, label="Guess time")
-
+        self.progress = ProgressBar(total=0, prefix="Words:")
         self.word_text = MaskedText(WORD_PROMPT, self.user)
         self.words_found_text = MaskedText(WORDS_FOUND_TEXT, self.user)
         self.error_text = MaskedText(WORD_PROMPT_ERROR, self.user)
@@ -58,19 +61,27 @@ class AnagramState(State):
         anagram_dictionary = {
             word: (word in self.user.words_unlocked) for word in full_anagram_dictionary
         }
-        self.timer.set_duration(len(self.anagram) * TIME_PER_LETTER - 300)
+        length = len(self.anagram)
+        self.progress.set_total(length)
+        self.timer.set_duration(max(length * TIME_PER_LETTER - 300, 30))
         round_win = self.play_round(anagram_dictionary)
 
         self.resolve_round(round_win, anagram_dictionary)
         self.next_state = "RESULTS_STATE"
         # self.next_state = "GAME_STATE"
 
+    
+
     def play_round(self, anagram_dictionary):
+
         self.timer.start()
         guessed_words = {word for word, found in anagram_dictionary.items() if found}
+        self.progress.set(len(guessed_words))
         playing = True
         while playing:
             clear_terminal()
+            self.progress.display()
+
             # Display anagram and progress
             print(
                 f"{' '.join(self.anagram.upper())} - {len([w for w, found in anagram_dictionary.items() if found])}/{len(anagram_dictionary)}"
@@ -78,11 +89,10 @@ class AnagramState(State):
             print("-" * 20)
             # calculate how many lines will be printed below the timer
             lines_below = 1
-            if "STATS" in self.user.unlocks:
-                lines_below += 1 + len(self.game_stats)
             lines_below += len(anagram_dictionary)
             if self.current_message:
                 lines_below += 1
+
             # Add 1 so the cursor moves all the way up from the prompt line to the timer line.
             self.timer.place(lines_below=lines_below + 1)
             print("-" * 20)
@@ -161,6 +171,7 @@ class AnagramState(State):
                     )
                     anagram_dictionary[word] = True
                     self.game_stats[STATS_CORRECT_GUESSES_TEXT] += 1
+                    self.progress.update(1)
                     break
 
                 # What type of invalid guess?

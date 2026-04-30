@@ -17,13 +17,16 @@ class NewGameState(State):
 
         self.return_to_menu_text = MaskedText(RETURN_TO_MENU_TEXT, self.user)
 
-    def run(self):
-        clear_terminal()
+    def print_starting_words(self):
         print(
             MaskedText(
                 f"New words: {', '.join(STARTING_VALID_WORDS)}", self.user
             ).render()
         )
 
+    def run(self):
+        clear_terminal()
+        self.print_starting_words()
+        
         input(self.return_to_menu_text.render())
         self.next_state = "GAME_STATE"

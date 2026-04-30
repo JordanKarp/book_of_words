@@ -13,6 +13,10 @@ class ProgressBar:
         self.current += step
         self.current = min(self.current, self.total)
 
+    def set_total(self, total):
+        self.total = total
+        self.current = 0
+
     def set(self, value):
         self.current = max(0, min(value, self.total))
 
@@ -23,7 +27,7 @@ class ProgressBar:
         bar = self.filled_char * filled_length + self.empty_char * (self.width - filled_length)
         percent = int(progress_ratio * 100)
 
-        print(f"\r{self.prefix} {self.current:>3} |{bar}| {percent}%", end="")
+        print(f"\n\r{self.prefix} {self.current:>3} |{bar}| {percent}%")
 
         if self.current == self.total:
             print()  # move to next line when done

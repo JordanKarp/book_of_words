@@ -31,8 +31,8 @@ SHOP_TEXT = "Shop"
 STATISTICS_TEXT = "Stats"
 QUIT_TEXT = "Quit"
 
-NEXT_PAGE_TEXT = "\n" + "-" * 47 + "\n Press ENTER (↵) to continue to the next page. \n" + "-" * 47 + "\n"
-RETURN_TO_MENU_TEXT = "\n" + "-" * 45 + "\n Press ENTER (↵) to return to the main menu. \n"+ "-" * 45 + "\n"
+NEXT_PAGE_TEXT = "\n" + "~" * 47 + "\n Press ENTER (↵) to continue to the next page. \n" + "~" * 47 + "\n"
+RETURN_TO_MENU_TEXT = "\n" + "~" * 45 + "\n Press ENTER (↵) to return to the main menu. \n"+ "~" * 45 + "\n"
 WORD_PROMPT = "Word: "
 WORD_PROMPT_ERROR = "Valid words only. Try again!"
 
@@ -74,3 +74,5 @@ SHOP_INTRO_TEXT = "Welcome to the shop! You have {} points. What would you like 
 SHOP_OPTION_FREEBIE_TEXT = "Buy Freebie ({} points)"
 SHOP_OPTION_EXTRA_LIFE_TEXT = "Buy Extra Life ({} points)"
 SHOP_OPTIONS = [SHOP_OPTION_FREEBIE_TEXT, SHOP_OPTION_EXTRA_LIFE_TEXT]
+
+RESULTS_LINE_BREAK = "~" * 15

@@ -11,13 +11,14 @@ from src.utilities.terminal_utilities import clear_terminal, get_option, get_fil
 from src.data.text_strings import *
 
 SAVES_PATH = Path(".") / "saves"
+HIGH_SCORES_PATH = Path(".") / "src" / "data" / "highscores.dat"
 
 
 class MainMenuState(State):
     def __init__(self):
         super().__init__()
         self.persist["saves_path"] = SAVES_PATH
-        self.scoreboard = HighScore('src/data/highscores.dat')
+        self.scoreboard = HighScore(HIGH_SCORES_PATH)
         self.settings = None
 
     def prompt_name(self):
@@ -39,25 +40,29 @@ class MainMenuState(State):
             else:
                 return user_data
 
+    def new_game(self):
+        name = self.prompt_name()
+        self.persist["user"] = User(name)
+        self.next_state = "NEW_GAME_STATE"
+
+    def load_game(self):
+        clear_terminal()
+        print(AVAILABLE_SAVES_TEXT)
+        saves = get_file_names_in_directory(SAVES_PATH)
+        save_names = [s.split(".")[0] for s in saves]
+        name = get_option(NAME_PROMPT_TEXT, save_names)
+        self.persist["user"] = self.load_user(name)
+        self.next_state = "GAME_STATE"
+
     def run(self):
         clear_terminal()
         print(HEADER_TEXT)
-
         choice = get_option("> ", MAIN_MENU_OPTIONS)
+        
         if choice == MAIN_MENU_NEW_GAME_TEXT:
-            name = self.prompt_name()
-            self.persist["user"] = User(name)
-            self.next_state = "NEW_GAME_STATE"
+            self.new_game()
         elif choice == MAIN_MENU_LOAD_GAME_TEXT:
-            clear_terminal()
-            print(AVAILABLE_SAVES_TEXT)
-            saves = get_file_names_in_directory(SAVES_PATH)
-            save_names = [s.split(".")[0] for s in saves]
-            name = get_option(NAME_PROMPT_TEXT, save_names)
-            print(name)
-            # name = self.prompt_name()
-            self.persist["user"] = self.load_user(name)
-            self.next_state = "GAME_STATE"
+            self.load_game()
         elif choice == MAIN_MENU_SETTINGS_TEXT:
             self.next_state = "SETTINGS_STATE"
         elif choice == MAIN_MENU_HIGH_SCORES_TEXT:

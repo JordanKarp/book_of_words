@@ -13,14 +13,14 @@ class HighScoresState(State):
 
     def startup(self, persistent=None):
         super().startup(persistent)
+        self.return_to_menu_text = MaskedText(RETURN_TO_MENU_TEXT, self.user)
+        self.high_score_text = MaskedText("High Scores:", self.user)
         self.scoreboard = persistent.get("scoreboard", None)
 
     def run(self):
         clear_terminal()
-        print("High Scores:")
+        print(self.high_score_text.render())
         self.scoreboard.display()
 
-        # print("\n" + "-" * 43)
-        # input(RETURN_TO_MENU_TEXT + "\n")
-        input(RETURN_TO_MENU_TEXT)
+        input(self.return_to_menu_text.render())
         self.next_state = "MAIN_MENU_STATE"

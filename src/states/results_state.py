@@ -2,7 +2,7 @@ from src.utilities.state import State
 from src.utilities.terminal_utilities import clear_terminal
 from src.utilities.masked_text import MaskedText
 
-from src.data.text_strings import RETURN_TO_MENU_TEXT
+from src.data.text_strings import RETURN_TO_MENU_TEXT, RESULTS_LINE_BREAK
 
 
 class ResultsState(State):
@@ -29,46 +29,24 @@ class ResultsState(State):
             self.user.add_points(new_words)
             self.unlocks = self.user.update_unlocks(new_words)
 
-        # if round_win:
-        #     new_words = self.user.learn_words(list(anagram_dictionary.keys()))
-        #     self.persist["new_words"] = new_words
-        #     self.user.add_points(new_words)
-        #     unlocks = self.user.update_unlocks(new_words)
-        #     if unlocks:
-        #         print(MaskedText(f"Unlocked {unlocks}!", self.user).render())
 
-        #     print(self.words_found_text.render())
-        #     print(", ".join(new_words))
-        #     input("\n\n"+self.return_text.render())
-        # else:
-        #     self.persist["new_words"] = []
-        #     print(MaskedText("Better luck next time!", self.user).render())
-        #     print(MaskedText("0 words learned.", self.user).render())
-        #     input("\n\n"+self.return_text.render())
-
-    def display_results(self):
-        clear_terminal()
+    def print_words_learned(self):
         print(MaskedText("Words Learned: ", self.user).render())
         for word in self.new_words:
             print(
                 MaskedText(f"- {f'{word}:'.ljust(12)} {len(word)} ", self.user).render()
-            )
+            )   
 
-        print("-" * 15)
+    def print_round_score(self):
+        score = sum(len(word) for word in self.new_words)
+        print(MaskedText(f"Round Score: {score}", self.user).render())
+
+    def print_unlocks(self):
         print(
-            MaskedText(
-                f"Round Score: {sum(len(word) for word in self.new_words)}", self.user
-            ).render()
-        )
-
-        if self.unlocks:
-            print("-" * 15)
-            print(
                 MaskedText(f"Unlocked: {', '.join(self.unlocks)}!", self.user).render()
             )
 
-        # TODO: DO SOMETHING WITH STATISTICS
-        print("-" * 15)
+    def print_statistics(self):
         print(MaskedText("Statistics: ", self.user).render())
         for stat in self.user.statistics:
             # print(f"{stat}: {self.user.statistics[stat]}")
@@ -76,4 +54,15 @@ class ResultsState(State):
                 MaskedText(f"{stat}: {self.user.statistics[stat]}", self.user).render()
             )
 
-        print("-" * 15)
+    def display_results(self):
+        clear_terminal()
+        self.print_words_learned()
+        print(RESULTS_LINE_BREAK)
+        self.print_round_score()
+        print(RESULTS_LINE_BREAK)
+        if self.unlocks:
+            self.print_unlocks()
+            print(RESULTS_LINE_BREAK)
+        if "STATS" in self.user.unlocks:
+            self.print_statistics()
+            print(RESULTS_LINE_BREAK)
