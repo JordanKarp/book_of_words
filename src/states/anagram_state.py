@@ -68,9 +68,6 @@ class AnagramState(State):
 
         self.resolve_round(round_win, anagram_dictionary)
         self.next_state = "RESULTS_STATE"
-        # self.next_state = "GAME_STATE"
-
-    
 
     def play_round(self, anagram_dictionary):
 
