@@ -17,6 +17,7 @@ HIGH_SCORES_PATH = Path(".") / "src" / "data" / "highscores.dat"
 class MainMenuState(State):
     def __init__(self):
         super().__init__()
+        SAVES_PATH.mkdir(parents=True, exist_ok=True)
         self.persist["saves_path"] = SAVES_PATH
         self.scoreboard = HighScore(HIGH_SCORES_PATH)
         self.settings = None
@@ -50,6 +51,9 @@ class MainMenuState(State):
         print(AVAILABLE_SAVES_TEXT)
         saves = get_file_names_in_directory(SAVES_PATH)
         save_names = [s.split(".")[0] for s in saves]
+        if not save_names:
+            print(NO_SAVE_FOUND_TEXT)
+            return
         name = get_option(NAME_PROMPT_TEXT, save_names)
         self.persist["user"] = self.load_user(name)
         self.next_state = "GAME_STATE"

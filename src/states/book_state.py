@@ -31,8 +31,8 @@ class BookState(State):
     def run(self):
         clear_terminal()
         for i, entry in enumerate(self.lore):
-            # self.print_page(entry, i)
             clear_terminal()
+            # self.print_page(entry, i)
             print(self.render_book_page(self.lore[entry].render()))
             if i != len(self.lore) - 1:
                 input(self.next_page_text.render())
@@ -57,14 +57,32 @@ class BookState(State):
     ):
         if border_style is None:
             border_style = {
-                "top_left": "╔",
-                "top_right": "╗",
-                "bottom_left": "╚",
-                "bottom_right": "╝",
-                "horizontal": "═",
-                "vertical": "║",
-                "binding": "║",
+                "top_left": "+",
+                "top_right": "+",
+                "bottom_left": "+",
+                "bottom_right": "+",
+                "horizontal": "-",
+                "vertical": "|",
+                "binding": "|",
             }
+            # border_style = {
+            #     "top_left": ".",
+            #     "top_right": ".",
+            #     "bottom_left": "'", 
+            #     "bottom_right": "'",
+            #     "horizontal": "-",
+            #     "vertical": "|",
+            #     "binding": ":",
+            # }
+            # border_style = {
+            #     "top_left": "╔",
+            #     "top_right": "╗",
+            #     "bottom_left": "╚",
+            #     "bottom_right": "╝",
+            #     "horizontal": "═",
+            #     "vertical": "║",
+            #     "binding": "║",
+            # }
 
         inner_width = width - 3
         usable_width = inner_width - (padding * 2)
@@ -98,17 +116,17 @@ class BookState(State):
         page = []
 
         # Top border
-        page.append(
-            border_style["top_left"] +
-            border_style["top_left"] +
-            border_style["horizontal"] * (width - 3) +
-            border_style["top_right"]
-        )
         # page.append(
         #     border_style["top_left"] +
-        #     border_style["horizontal"] * (width - 2) +
+        #     border_style["top_left"] +
+        #     border_style["horizontal"] * (width - 3) +
         #     border_style["top_right"]
         # )
+        page.append(
+            border_style["top_left"] +
+            border_style["horizontal"] * (width - 2) +
+            border_style["top_right"]
+        )
 
         # Content
         for i in range(max_lines):
@@ -129,10 +147,15 @@ class BookState(State):
             page.append(full_line)
 
         # Bottom border
+        # page.append(
+        #     border_style["bottom_left"] +
+        #     border_style["bottom_left"] +
+        #     border_style["horizontal"] * (width - 3) +
+        #     border_style["bottom_right"]
+        # )
         page.append(
             border_style["bottom_left"] +
-            border_style["bottom_left"] +
-            border_style["horizontal"] * (width - 3) +
+            border_style["horizontal"] * (width - 2) +
             border_style["bottom_right"]
         )
 

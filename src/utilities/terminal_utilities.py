@@ -24,22 +24,21 @@ def get_valid_word(prompt="Word: \n", valid_words=None, error_message="Please en
         print(error_message)
 
 def get_option(prompt, options):
-    try:
+    if not options:
+        return None
+
+    while True:
         for num, option in enumerate(options, 1):
             print(f"{num}: {option}")
-        num_options = len(options)
         choice = _get_number(prompt)
-        if choice <= num_options:
+        if 1 <= choice <= len(options):
             return options[choice - 1]
-    except ValueError:
-        print("Error: Invalid input. Please enter a valid number.")
+        print("Error: Invalid option. Please try again.")
 
 
 def clear_terminal():
-    # For Windows
     if os.name == "nt":
         _ = os.system("cls")
-    # For Mac and Linux (posix)
     else:
         _ = os.system("clear")
 

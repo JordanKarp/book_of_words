@@ -25,9 +25,13 @@ class ShopState(State):
         self.next_state = self
         self.persist = persistent
         self.user = self.persist["user"]
-        self.shop_text = MaskedText(SHOP_INTRO_TEXT, self.user)
-        self.shop_freebie_text = MaskedText(SHOP_OPTION_FREEBIE_TEXT, self.user)
-        self.shop_extra_life_text = MaskedText(SHOP_OPTION_EXTRA_LIFE_TEXT, self.user)
+        self.shop_text = MaskedText(SHOP_INTRO_TEXT.format(self.user.points), self.user)
+        self.shop_freebie_text = MaskedText(
+            SHOP_OPTION_FREEBIE_TEXT.format(FREEBIE_PRICE), self.user
+        )
+        self.shop_extra_life_text = MaskedText(
+            SHOP_OPTION_EXTRA_LIFE_TEXT.format(EXTRA_LIFE_PRICE), self.user
+        )
 
     def print_upgrades(self):
         print(f"You have currently have {self.user.points} points.")
@@ -38,19 +42,40 @@ class ShopState(State):
         print("4. Back to Game Menu")
 
     def run(self):
-        while True:
-            clear_terminal()
-            print(self.shop_intro_text.render())
-            shop_options = self.get_shop_options()
-            choice = get_option("> ", shop_options)
-            # if choice == 'Buy freebie word\t{FREEBIE_PRICE}'.format(FREEBIE_PRICE=FREEBIE_PRICE):
-            #     if self.user.points >= FREEBIE_PRICE:
-            #         self.user.points -= FREEBIE_PRICE
-            #         self.user.freebies += 1
-            #         print(self.shop_freebie_text.render())
-            #     else:
-            #         print(self.shop_insufficient_points_text.render())
+        clear_terminal()
+        print(self.shop_intro_text.render())
+        shop_options = self.get_shop_options()
+        if not shop_options:
+            print("Shop is currently unavailable. Unlock shop access before visiting.")
+            input("Press ENTER to return to the game.")
             self.next_state = "GAME_STATE"
+            return
+
+        choice = get_option("> ", shop_options)
+        if not choice or choice == "Back to Game Menu":
+            self.next_state = "GAME_STATE"
+            return
+
+        if choice.startswith("Buy freebie"):
+            if self.user.points >= FREEBIE_PRICE:
+                self.user.points -= FREEBIE_PRICE
+                self.user.freebies += 1
+                print(self.shop_freebie_text.render())
+            else:
+                print("Not enough points for that purchase.")
+            input(RETURN_TO_MENU_TEXT)
+            self.next_state = "GAME_STATE"
+            return
+
+        if choice.startswith("Buy extra life"):
+            if self.user.points >= EXTRA_LIFE_PRICE:
+                self.user.points -= EXTRA_LIFE_PRICE
+                print(self.shop_extra_life_text.render())
+            else:
+                print("Not enough points for that purchase.")
+            input(RETURN_TO_MENU_TEXT)
+            self.next_state = "GAME_STATE"
+            return
 
     def get_shop_options(self):
         options = []

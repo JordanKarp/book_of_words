@@ -68,6 +68,7 @@ class GameState(State):
         self.persist["scoreboard"].add_score(self.user.name, self.user.high_score)
 
     def save_game(self):
+        SAVES_PATH.mkdir(parents=True, exist_ok=True)
         self.add_high_score()
         filename = f"{self.user.name}.dat"
         with open(SAVES_PATH / filename, "wb") as f:
@@ -75,7 +76,7 @@ class GameState(State):
 
 
     def cleanup(self):
-        self.add_high_score()
-        self.save_game()
         self.persist["user"] = self.user
         self.persist["all_words"] = self.all_words
+        self.persist["scoreboard"] = self.scoreboard
+        self.persist["settings"] = self.settings
