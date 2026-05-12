@@ -2,7 +2,7 @@ from src.utilities.state import State
 from src.utilities.terminal_utilities import clear_terminal
 from src.utilities.masked_text import MaskedText
 
-from src.data.text_strings import RETURN_TO_MENU_TEXT
+from src.data.text_strings import RETURN_TO_MENU_TEXT, LINE_BREAK
 from src.data.starting_words import STARTING_WORDS, STARTING_VALID_WORDS
 
 
@@ -27,6 +27,6 @@ class NewGameState(State):
     def run(self):
         clear_terminal()
         self.print_starting_words()
-        
+        print(LINE_BREAK)
         input(self.return_to_menu_text.render())
         self.next_state = "GAME_STATE"
