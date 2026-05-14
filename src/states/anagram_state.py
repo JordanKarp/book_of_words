@@ -28,6 +28,8 @@ class AnagramState(State):
         self.all_words_index, self.all_words_set = build_index_and_word_set(
             self.all_words
         )
+        self.use_timer = False
+        self.use_progress_bar = False
 
     def startup(self, persistent=None):
         super().startup(persistent)
@@ -62,37 +64,41 @@ class AnagramState(State):
             word: (word in self.user.words_unlocked) for word in full_anagram_dictionary
         }
         length = len(self.anagram)
-        self.progress.set_total(length)
-        self.timer.set_duration(max(length * TIME_PER_LETTER - 300, 30))
+        if self.use_progress_bar:
+            self.progress.set_total(length)
+        if self.use_timer:
+            self.timer.set_duration(max(length * TIME_PER_LETTER - 300, 30))
         round_win = self.play_round(anagram_dictionary)
 
         self.resolve_round(round_win, anagram_dictionary)
         self.next_state = "RESULTS_STATE"
 
     def play_round(self, anagram_dictionary):
-
-        self.timer.start()
+        if self.use_timer:
+            self.timer.start()
         guessed_words = {word for word, found in anagram_dictionary.items() if found}
-        self.progress.set(len(guessed_words))
+        if self.use_progress_bar:
+            self.progress.set(len(guessed_words))
         playing = True
         while playing:
             clear_terminal()
-            self.progress.display()
-
+            if self.use_progress_bar:
+                self.progress.display()
             # Display anagram and progress
             print(
                 f"{' '.join(self.anagram.upper())} - {len([w for w, found in anagram_dictionary.items() if found])}/{len(anagram_dictionary)}"
             )
-            print("-" * 20)
-            # calculate how many lines will be printed below the timer
-            lines_below = 1
-            lines_below += len(anagram_dictionary)
-            if self.current_message:
-                lines_below += 1
+            print("~" * 20)
+            if self.use_timer:
+                # calculate how many lines will be printed below the timer
+                lines_below = 1
+                lines_below += len(anagram_dictionary)
+                if self.current_message:
+                    lines_below += 1
 
-            # Add 1 so the cursor moves all the way up from the prompt line to the timer line.
-            self.timer.place(lines_below=lines_below + 1)
-            print("-" * 20)
+                # Add 1 so the cursor moves all the way up from the prompt line to the timer line.
+                self.timer.place(lines_below=lines_below + 1)
+                print("~" * 20)
 
             # Display stats
             if "STATS" in self.user.unlocks:
@@ -123,10 +129,10 @@ class AnagramState(State):
 
                 # Get user guess
                 word = input("> ").strip().lower()
-
-                if not self.timer.has_time_left():
-                    playing = False
-                    return False
+                if self.use_timer:
+                    if not self.timer.has_time_left():
+                        playing = False
+                        return False
 
                 # Is it a special command?
                 if word == "q":
@@ -144,12 +150,12 @@ class AnagramState(State):
                         self.user.freebies -= 1
                         break
                 elif word == "t":
-                    self.timer.add_time(30)
+                    if self.use_timer:
+                        self.timer.add_time(30)
                     self.current_message = "Time added test"
                     break
 
                 self.game_stats[STATS_WORDS_GUESSED_TEXT] += 1
-                # self.game_stats[STATS_WORDS_GUESSED_LIST]append(word)
 
                 # Repeat guess?
                 if word in guessed_words:
@@ -168,7 +174,8 @@ class AnagramState(State):
                     )
                     anagram_dictionary[word] = True
                     self.game_stats[STATS_CORRECT_GUESSES_TEXT] += 1
-                    self.progress.update(1)
+                    if self.use_progress_bar:
+                        self.progress.update(1)
                     break
 
                 # What type of invalid guess?
